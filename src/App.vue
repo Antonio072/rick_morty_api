@@ -19,7 +19,9 @@
             />
           </div>
           <div class="control">
-            <button class="button is-success is-rounded" v-on:click="searchData()">Filtrar</button>
+            <button class="button is-success is-rounded" v-on:click="searchData()">
+              <i class="material-icons">search</i>Buscar
+            </button>
           </div>
         </div>
       </div>
@@ -68,12 +70,26 @@
                 <img class="is-rounded" :src="currentCharacter.image" :alt="currentCharacter.name" />
               </figure>
 
-              <p class="modal-card-title"> <strong>{{currentCharacter.name}}</strong></p>
-              <p class>Especie:  <strong>{{currentCharacter.species}}</strong></p>
+              <p class="modal-card-title">
+                <strong>{{currentCharacter.name}}</strong>
+              </p>
+              <p class>
+                Especie:
+                <strong>{{currentCharacter.species}}</strong>
+              </p>
 
-              <p class>Genero:  <strong>{{currentCharacter.gender}}</strong></p>
-              <p class>Ubicacion:  <strong>{{currentCharacter.location.name}}</strong></p>
-              <p class>Episodes:  <strong>{{currentCharacter.episode.length}}</strong></p>
+              <p class>
+                Genero:
+                <strong>{{currentCharacter.gender}}</strong>
+              </p>
+              <p class>
+                Ubicacion:
+                <strong>{{currentCharacter.location.name}}</strong>
+              </p>
+              <p class>
+                Episodes:
+                <strong>{{currentCharacter.episode.length}}</strong>
+              </p>
             </div>
           </div>
         </section>
