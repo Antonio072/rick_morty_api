@@ -9,29 +9,25 @@
             <span class="subtitle">Personajes</span>
           </h1>
 
-          <button class="button is-success is-rounded" :click="fetchData()">
-            Consultar
-          </button>
         </div>
       </div>
     </div>
     <div class="container">
       <div class="columns is-desktop is-mobile is-tablet is-multiline is-centered">
         <div class="column is-12-mobile is-4-desktop is-4-tablet" v-for="character in characters" :key="character.id">
-          <div class="card" >
-            <div class="card-header">
-              <img :src="character.image" :alt="character.name">
-          
-            </div>
-            <div class="card-content">
-              <h3 class="title is-size-4">{{character.name}}</h3>
-              <button class="button is-success is-rounded is-small">
-                Ver más
-              </button>
-            </div>
-          </div>
+          <CharactersCard :character="character"/>
         </div>
       </div>
+
+      <nav class="pagination" role="navigation" aria-label="pagination">
+
+        <a class="pagination-previous" v-on:click="changePage(page-1)">Anterior</a>
+
+        <ul class="pagination-list">
+          <li><a  class="pagination-link is-current" >{{page}}</a></li>
+        </ul>
+        <a class="pagination-next" v-on:click="changePage(page+1)">Siguiente</a>
+      </nav>
     </div>
   </div>
 </template>
@@ -40,12 +36,18 @@
 /* eslint-disable */
 
 import axios from "axios";
+import CharactersCard from '@/components/CharactersCard.vue';
 
 export default {
   name: "app",
+  components: {
+    CharactersCard,
+  },
   data() {
     return {
-      characters: []
+      characters: [],
+      page: 1,
+      pages: 1
     };
   },
 
@@ -54,14 +56,23 @@ export default {
   },
   methods: {
     fetchData() {
+      const params ={
+        page : this.page
+      }
       let result = axios
-        .get("https://rickandmortyapi.com/api/character")
+        .get("https://rickandmortyapi.com/api/character/", {params})
         .then(res => {
-          this.characters = res.data.results;
+          this.characters = res.data.results
+          this.pages = res.data.info.pages
+          
         })
         .catch(error => {
           console.error(error);
         });
+    },
+    changePage(page){
+        this.page = page<=0 || page >=this.pages ? this.page : page
+        this.fetchData()
     }
   }
 };
