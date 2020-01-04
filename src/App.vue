@@ -1,32 +1,38 @@
 <template>
   <div id="app">
-    <div class="hero is-white is-gradient is-bold">
-      <div class="hero-body">
-        <div class="title">
-          <h1 class="title">
-            <span class="has-text-success">Rick and Morty</span>
-            <span class="subtitle">Personajes</span>
-          </h1>
-        </div>
-
-        <div class="field has-addons is-pulled-right">
-          <div class="control">
-            <input
-              type="text"
-              class="input is-rounded"
-              v-model="search"
-              v-on:keyup.enter="searchData()"
-            />
+    <toolbar/>
+    <div class="container">
+      <div class="hero is-primary">
+        <div class="hero-body">
+          <div class="columns">
+            <div class="column">
+               <h1 class="title">
+              <span class="has-text-white">Personajes</span>
+            </h1>
+            </div>
+            <div class="column">
+              <div class="field has-addons is-pulled-right">
+            <div class="control">
+              <input
+                type="text"
+                class="input is-rounded"
+                v-model="search"
+                v-on:keyup.enter="searchData()"
+              />
+            </div>
+            <div class="control">
+              <button class="button is-success is-rounded" v-on:click="searchData()">
+                <i class="material-icons">search</i>Buscar
+              </button>
+            </div>
           </div>
-          <div class="control">
-            <button class="button is-success is-rounded" v-on:click="searchData()">
-              <i class="material-icons">search</i>Buscar
-            </button>
-          </div>
+            </div>
+          </div>  
         </div>
       </div>
     </div>
     <div class="container">
+      <pagination :page="page" v-on:changePage="changePage($event)"/>
       <div class="columns is-desktop is-mobile is-tablet is-multiline is-centered">
         <div
           class="column is-12-mobile is-4-desktop is-4-tablet"
@@ -37,16 +43,7 @@
         </div>
       </div>
 
-      <nav class="pagination" role="navigation" aria-label="pagination">
-        <a class="pagination-previous" v-on:click="changePage(page-1)">Anterior</a>
 
-        <ul class="pagination-list">
-          <li>
-            <a class="pagination-link is-current">{{page}}</a>
-          </li>
-        </ul>
-        <a class="pagination-next" v-on:click="changePage(page+1)">Siguiente</a>
-      </nav>
     </div>
 
     <div class="modal" :class="{ 'is-active': modal}" v-if="modal">
@@ -87,7 +84,7 @@
                 <strong>{{currentCharacter.location.name}}</strong>
               </p>
               <p class>
-                Episodes:
+                Episodios:
                 <strong>{{currentCharacter.episode.length}}</strong>
               </p>
             </div>
@@ -105,12 +102,20 @@
 /* eslint-disable */
 
 import axios from "axios";
-import CharactersCard from "@/components/CharactersCard.vue";
+
+// Global components
+import Toolbar from '@/components/global/Toolbar.vue';
+import Pagination from '@/components/global/Pagination.vue';
+
+import CharactersCard from "@/components/characters/CharactersCard.vue";
+
 
 export default {
   name: "app",
   components: {
-    CharactersCard
+    CharactersCard,
+    Toolbar,
+    Pagination
   },
   data() {
     return {
@@ -143,6 +148,8 @@ export default {
         });
     },
     changePage(page) {
+      console.log(page)
+      console.log("Paginar")
       this.page = page <= 0 || page >= this.pages ? this.page : page;
       this.fetchData();
     },
@@ -151,10 +158,8 @@ export default {
         this.page = 1;
         this.fetchData();
       }
-      console.log(this.search);
     },
     showCharacterModal(id) {
-      console.log(id);
       this.fetchCharacter(id);
     },
     async fetchCharacter(id) {
@@ -164,8 +169,6 @@ export default {
 
       this.currentCharacter = result.data;
       this.modal = true;
-
-      console.log(this.currentCharacter);
     }
   }
 };
