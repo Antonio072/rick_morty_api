@@ -14,6 +14,12 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
+              <router-link to="/">
+                <a class="button is-primary">
+                  <i class="material-icons">home</i>
+                  <strong>Inicio</strong>
+                </a>
+              </router-link>
               <router-link to="/personajes">
                 <a class="button is-primary">
                   <i class="material-icons">account_circle</i>
