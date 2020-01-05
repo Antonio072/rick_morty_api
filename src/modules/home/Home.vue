@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Home</h1>
-        <home-card   v-for="item in cards" :key="item.id" :homeCard="item"></home-card>
+        <home-card  v-for="item in cards" :key="item.id" :homeCard="item"></home-card>
     </div>
 </template>
 

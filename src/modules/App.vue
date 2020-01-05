@@ -1,15 +1,7 @@
 <template>
   <div id="app">
     <toolbar/>
-      <p>
-    <!-- use router-link component for navigation. -->
-    <!-- specify the link by passing the `to` prop. -->
-    <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
-    <router-link to="/about">Go to about</router-link>
-    <router-link to="/profile">Go to profile</router-link>
-    <router-link to="/home">Go to home</router-link>
-  </p>
-  <router-view></router-view>
+    <router-view></router-view>
     <!-- <div class="container">
       <div class="hero is-primary">
         <div class="hero-body">

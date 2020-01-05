@@ -1,13 +1,14 @@
 import Home from './modules/home/Home.vue';
-import About from '@/components/About.vue';
-import Profile from '@/components/Profile.vue';
+import CharactersView from './modules/characters/CharactersView.vue';
+import PlacesView from './modules/places/PlacesView.vue';
+import EpisodesView from './modules/episodes/EpisodesView.vue';
 import VueRouter from 'vue-router';
 
 const routes = [
     { path:"/", component: Home},
-    { path:"/about", component: About},
-    { path:"/home", component: Home},
-    { path:"/profile", component: Profile}
+    { path:"/personajes", component: CharactersView},
+    { path:"/lugares", component: PlacesView},
+    { path:"/episodios", component: EpisodesView}
 ]
 
 const router = new VueRouter({
