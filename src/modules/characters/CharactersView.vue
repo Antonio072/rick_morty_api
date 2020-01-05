@@ -1,35 +1,7 @@
 <template>
   <div class="container">
-    <div class="container">
-      <div class="hero is-primary">
-        <div class="hero-body">
-          <div class="columns">
-            <div class="column">
-              <h1 class="title">
-                <span class="has-text-white">Personajes</span>
-              </h1>
-            </div>
-            <div class="column">
-              <div class="field has-addons is-pulled-right">
-                <div class="control">
-                  <input
-                    type="text"
-                    class="input is-rounded"
-                    v-model="search"
-                    v-on:keyup.enter="searchData()"
-                  />
-                </div>
-                <div class="control">
-                  <button class="button is-success is-rounded" v-on:click="searchData()">
-                    <i class="material-icons">search</i>Buscar
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <main-title title="Personajes" v-on:searchData="searchData($event)"/>
+      
     <div class="container">
       <pagination :page="page" v-on:changePage="changePage($event)" />
       <div class="columns is-desktop is-mobile is-tablet is-multiline is-centered">
@@ -102,20 +74,22 @@ import axios from "axios";
 import CharactersCard from "./CharactersCard.vue";
 
 import Pagination from "../global/Pagination.vue";
+import MainTitle from "../global/Title.vue";
 
 export default {
   components: {
     CharactersCard,
-    Pagination
+    Pagination,
+    MainTitle
   },
   data() {
     return {
       characters: [],
       page: 1,
       pages: 1,
-      search: "",
       modal: false,
-      currentCharacter: {}
+      currentCharacter: {},
+      search: ""
     };
   },
   created() {
@@ -141,11 +115,11 @@ export default {
       this.page = page <= 0 || page >= this.pages ? this.page : page;
       this.fetchData();
     },
-    searchData() {
-      if (this.search.length != 0) {
+    searchData(search) {
+        this.search = search
         this.page = 1;
         this.fetchData();
-      }
+      
     },
     showCharacterModal(id) {
       this.fetchCharacter(id);

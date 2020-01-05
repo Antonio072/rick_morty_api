@@ -2,7 +2,6 @@
   <div id="app">
     <toolbar></toolbar>
     <router-view></router-view>
-
   </div>
 </template>
 
