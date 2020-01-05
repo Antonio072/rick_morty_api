@@ -1,7 +1,16 @@
 <template>
   <div id="app">
     <toolbar/>
-    <div class="container">
+      <p>
+    <!-- use router-link component for navigation. -->
+    <!-- specify the link by passing the `to` prop. -->
+    <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
+    <router-link to="/about">Go to about</router-link>
+    <router-link to="/profile">Go to profile</router-link>
+    <router-link to="/home">Go to home</router-link>
+  </p>
+  <router-view></router-view>
+    <!-- <div class="container">
       <div class="hero is-primary">
         <div class="hero-body">
           <div class="columns">
@@ -94,7 +103,9 @@
           <button class="button" @click="modal = !modal">Cerrar</button>
         </footer>
       </div>
-    </div>
+    </div> -->
+
+
   </div>
 </template>
 
@@ -104,10 +115,10 @@
 import axios from "axios";
 
 // Global components
-import Toolbar from '@/components/global/Toolbar.vue';
-import Pagination from '@/components/global/Pagination.vue';
+import Toolbar from './global/Toolbar.vue';
+import Pagination from './global/Pagination.vue';
 
-import CharactersCard from "@/components/characters/CharactersCard.vue";
+import CharactersCard from "./characters/CharactersCard.vue";
 
 
 export default {
@@ -148,8 +159,6 @@ export default {
         });
     },
     changePage(page) {
-      console.log(page)
-      console.log("Paginar")
       this.page = page <= 0 || page >= this.pages ? this.page : page;
       this.fetchData();
     },
